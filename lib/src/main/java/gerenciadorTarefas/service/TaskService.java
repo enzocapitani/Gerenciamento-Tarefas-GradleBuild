@@ -1,12 +1,14 @@
 package gerenciadorTarefas.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.apache.commons.math3.exception.NullArgumentException;
 
 import gerenciadorTarefas.model.Tarefa;
 import gerenciadorTarefas.repository.InMemoryTaskRepository;
-import gerenciadorTarefas.ui.Style.Style;
+import gerenciadorTarefas.ui.style.Style;
 
 public class TaskService {
 	
@@ -68,6 +70,10 @@ public class TaskService {
 		
 		taskrepo.limparConcluidas();
 		
+	}
+	
+	public ArrayList<Tarefa> enviarCopia() {
+		return new ArrayList<>(taskrepo.getTarefas());
 	}
 	
 	private boolean confirmacao() {

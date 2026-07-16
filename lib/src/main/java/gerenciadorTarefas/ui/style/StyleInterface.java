@@ -1,4 +1,4 @@
-package gerenciadorTarefas.ui.Style;
+package gerenciadorTarefas.ui.style;
 
 public interface StyleInterface {
 	static void escrever(String frase) {}

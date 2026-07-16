@@ -3,7 +3,7 @@ package gerenciadorTarefas.model;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import gerenciadorTarefas.ui.Style.Style;
+import gerenciadorTarefas.ui.style.Style;
 
 public class Tarefa {
 	
