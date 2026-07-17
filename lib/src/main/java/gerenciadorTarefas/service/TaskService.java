@@ -20,16 +20,6 @@ public class TaskService {
 		scr = new Scanner(System.in);
 	}
 	
-	public void concluirTarefa(int index) {
-		if(index >= taskrepo.getTarefas().size() || index < 0) {
-			Style.escrever("ERRO! Indice de tarefa inválido!", 10);
-			return;
-		}
-		
-		taskrepo.concluir(index);
-		
-	}
-	
 	public boolean adicionarTarefa(String tarefa, int prazo) {
 		String tarefaFinal = tarefa;
 		int prazoFinal = prazo;
@@ -55,13 +45,20 @@ public class TaskService {
 		
 	}
 	
-	public void concluirTarefa(Tarefa tarefa) {
-		if(!taskrepo.getTarefas().contains(tarefa)){
+	public void concluirTarefa(int indice) {
+		int indiceFinal = indice -1;
+		
+		if(indiceFinal >= taskrepo.getTarefas().size()|| indiceFinal < 0){
 			Style.escrever("Erro! Tarefa inexistente");
 			return;
 		}
 		
-		taskrepo.concluir(taskrepo.getTarefas().indexOf(tarefa));
+		Tarefa tarefaConcluida = taskrepo.getTarefas().get(indiceFinal);
+		
+		Style.escrever("Você vai concluir a tarefa: "+tarefaConcluida.getObjetivo(), indiceFinal);
+		
+		if(confirmacao())
+		taskrepo.concluir(indiceFinal);
 		
 	}
 	

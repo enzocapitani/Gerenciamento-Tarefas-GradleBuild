@@ -2,6 +2,8 @@ package gerenciadorTarefas.ui.style;
 
 public class Style implements StyleInterface {
 	
+	public static String separador = "===========================================";
+	
 	private static int delay = 70;
 	
 	public static void escrever(String frase, int delay) {

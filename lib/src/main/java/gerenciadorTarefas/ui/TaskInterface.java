@@ -10,8 +10,6 @@ import gerenciadorTarefas.ui.style.Style;
 
 public class TaskInterface {
 	
-	private final String separador = "===========================================";
-	
 	TaskService service;
 	GerenciarTaskUi gerenciadorUi;
 	
@@ -26,10 +24,10 @@ public class TaskInterface {
 	public void runInterface() {
 		boolean rodando = true;
 		
-		System.out.println(separador);
+		System.out.println(Style.separador);
 		Style.escrever("Bem-Vindo ao gerenciador de tarefas!");
 		Style.escrever("O que temos para hoje?!");
-		System.out.println(separador);
+		System.out.println(Style.separador);
 		
 		while(rodando) {
 			
@@ -62,7 +60,7 @@ public class TaskInterface {
 		System.out.print("Resposta: ");
 		int resposta = scr.nextInt();
 		
-		System.out.println(separador);
+		System.out.println(Style.separador);
 		
 		//Limpa o buffer, exclui o \n
 		scr.nextLine();
@@ -73,7 +71,7 @@ public class TaskInterface {
 		System.out.print("Resposta: ");
 		String resposta = scr.nextLine();
 		
-		System.out.println(separador);
+		System.out.println(Style.separador);
 		
 		return resposta;
 	}

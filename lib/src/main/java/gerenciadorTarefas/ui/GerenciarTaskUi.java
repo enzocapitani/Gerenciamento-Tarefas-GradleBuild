@@ -10,21 +10,29 @@ public class GerenciarTaskUi {
 	
 	TaskService service;
 	
-	private final String separador = "===========================================";
-	
 	public GerenciarTaskUi(TaskService taskservice) {
 		this.service = taskservice;
 	}
 	
 	
 	public void gerenciarTasks() {
-		Style.escrever("GERENCIADOR DE TAREFAS");
-		Style.escrever("1- Mostrar tarefas\n2- Concluir tarefa\n3- Excluir todas as tarefas\n 4- Limpar Concluidas\n"+
-		"5- Sair", 10);
+		boolean rodando = true;
 		
-		while(true) {
-			mostrarTarefas();
-			break;
+		Style.escrever("GERENCIADOR DE TAREFAS");
+		System.out.println(Style.separador);
+		
+		while(rodando) {
+			Style.escrever("1- Mostrar tarefas\n2- Concluir tarefa\n3- Excluir todas as tarefas\n4- Limpar Concluidas\n"+
+					"5- Sair", 10);
+			System.out.println(Style.separador);
+			
+			switch (Input.pegaInt()) {
+			case 1 -> mostrarTarefas();
+			case 2 -> concluirTarefa();
+			case 3 -> System.out.println("em build");
+			case 4 -> rodando = false;
+			}
+			
 		}
 	}
 	
@@ -37,7 +45,20 @@ public class GerenciarTaskUi {
 			tarefas.get(i).mostrar();
 		}
 		
-		System.out.println(separador);
+		System.out.println(Style.separador);
+		
+	}
+	
+	private void concluirTarefa() {
+		
+		ArrayList<Tarefa> tarefas = service.enviarCopia();
+		mostrarTarefas();
+		System.out.println(Style.separador);
+		
+		Style.escrever("Insira o número da tarefa que deseja terminar : ");
+		int indiceTarefa = Input.pegaInt();
+		
+		service.concluirTarefa(indiceTarefa);
 		
 	}
 	
