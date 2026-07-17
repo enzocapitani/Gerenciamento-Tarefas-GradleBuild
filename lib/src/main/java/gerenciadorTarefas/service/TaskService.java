@@ -8,6 +8,7 @@ import org.apache.commons.math3.exception.NullArgumentException;
 
 import gerenciadorTarefas.model.Tarefa;
 import gerenciadorTarefas.repository.InMemoryTaskRepository;
+import gerenciadorTarefas.ui.Input;
 import gerenciadorTarefas.ui.style.Style;
 
 public class TaskService {
@@ -20,28 +21,32 @@ public class TaskService {
 		scr = new Scanner(System.in);
 	}
 	
-	public boolean adicionarTarefa(String tarefa, int prazo) {
+	public void adicionarTarefa(String tarefa, int prazo) {
 		String tarefaFinal = tarefa;
 		int prazoFinal = prazo;
 		
 		//Captura valores invalidos - erros
 		if(tarefa == null) {
 			Style.escrever("Erro! tarefa enviou valor nulo");
-			return true;
+			return;
 		}
 		
 		if(prazoFinal < 0) {
 			Style.escrever("Erro! Prazo inválido");
-			return true;
+			return;
 		}
 		
 		if(tarefaFinal.trim().length() < 4 || tarefaFinal.isBlank() || tarefaFinal.isEmpty()) {
 			Style.escrever("Erro! Tarefa menor que 3 letras ou vazia");
-			return true;
+			return;
 		}
 		
-		taskrepo.adcionarTarefa(new Tarefa(prazo, tarefa));
-		return false;
+		Style.escrever("Você vai criar a tarefa: "+tarefaFinal+" com prazo de "+prazoFinal+" dias", 10);
+		
+		if(confirmacao()) {
+			taskrepo.adcionarTarefa(new Tarefa(prazo, tarefa));
+			Style.escrever("Tarefa criada com suceso!");
+		}
 		
 	}
 	
@@ -63,10 +68,18 @@ public class TaskService {
 	}
 	
 	public void limparConcluidas() {
+		
 		if(!confirmacao()) return;
 		
 		taskrepo.limparConcluidas();
 		
+		Style.escrever("Tarefas concluidas limpas com sucesso");
+		
+	}
+
+	public void apagarTarefas() {
+		if(confirmacao())
+			taskrepo.apagarTodasTarefas();
 	}
 	
 	public ArrayList<Tarefa> enviarCopia() {
@@ -77,11 +90,18 @@ public class TaskService {
 		while(true) {
 			Style.escrever("Confirma? S/N");
 			
-			if(scr.nextLine().equalsIgnoreCase("s")) return true;
-			if(scr.nextLine().equalsIgnoreCase("n")) return false;
+			String resposta = Input.pegaString();
+			
+			if(resposta.equalsIgnoreCase("s")) return true;
+			if(resposta.equalsIgnoreCase("n")) return false;
 			
 			Style.escrever("Resposta inválida!");
 		}
 	}
+	
+	public boolean estaVazia() {
+		return taskrepo.getTarefas().isEmpty();
+	}
+	
 	
 }

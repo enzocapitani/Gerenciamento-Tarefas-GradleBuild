@@ -22,7 +22,7 @@ public class InMemoryTaskRepository {
 		tarefas.removeIf(tarefa -> tarefa.isConcluida());
 	}
 	
-	public void limparLista() {
+	public void apagarTodasTarefas() {
 		tarefas.clear();
 	}
 	

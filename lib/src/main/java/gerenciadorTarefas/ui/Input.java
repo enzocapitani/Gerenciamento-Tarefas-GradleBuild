@@ -7,7 +7,7 @@ import gerenciadorTarefas.ui.style.Style;
 public class Input {
 	static Scanner scr = new Scanner(System.in);
 	
-	static int pegaInt() {
+	public static int pegaInt() {
 		System.out.print("Resposta: ");
 		
 		int resposta = scr.nextInt();
@@ -18,8 +18,8 @@ public class Input {
 		return resposta;
 	}
 	
-	static String pegaString() {
-		System.out.println("Resposta: ");
+	public static String pegaString() {
+		System.out.print("Resposta: ");
 		
 		String resposta = scr.nextLine();
 		System.out.println(Style.separador);

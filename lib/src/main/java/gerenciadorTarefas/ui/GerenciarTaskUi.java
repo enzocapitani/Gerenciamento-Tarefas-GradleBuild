@@ -22,43 +22,85 @@ public class GerenciarTaskUi {
 		System.out.println(Style.separador);
 		
 		while(rodando) {
-			Style.escrever("1- Mostrar tarefas\n2- Concluir tarefa\n3- Excluir todas as tarefas\n4- Limpar Concluidas\n"+
-					"5- Sair", 10);
+			Style.escrever("1- Mostrar tarefas\n2- Criar Tarefa\n3- Concluir tarefa\n4- Excluir todas as tarefas\n5- Limpar Concluidas\n"+
+					"6- Sair", 10);
 			System.out.println(Style.separador);
 			
 			switch (Input.pegaInt()) {
 			case 1 -> mostrarTarefas();
-			case 2 -> concluirTarefa();
-			case 3 -> System.out.println("em build");
-			case 4 -> rodando = false;
+			case 2 -> criarTarefa();
+			case 3 -> concluirTarefa();
+			case 4 -> excluirTarefas();
+			case 5 -> limparConcluidas();
+			case 6 -> rodando = false;
 			}
 			
 		}
 	}
 	
-	private void mostrarTarefas() {
+	private boolean mostrarTarefas() {
 		ArrayList<Tarefa> tarefas = service.enviarCopia();
-		Style.escrever("Mostrando Tarefas...\n");
+		Style.escrever("Mostrando Tarefas\n");
+		
+		if(estaVazia()) return false;
 		
 		for(int i = 0 ; i < tarefas.size(); i++) {
 			System.out.print((i+1)+" : ");
 			tarefas.get(i).mostrar();
 		}
-		
 		System.out.println(Style.separador);
 		
+		return true;
+		
+	}
+	
+	private void criarTarefa() {
+		
+		Style.escrever("Qual será a tarefa?");
+		String objetivo = Input.pegaString();
+		
+		Style.escrever("Qual será o prazo da tarefa?");
+		int prazo = Input.pegaInt();
+		
+		service.adicionarTarefa(objetivo, prazo);
 	}
 	
 	private void concluirTarefa() {
 		
-		ArrayList<Tarefa> tarefas = service.enviarCopia();
-		mostrarTarefas();
+		if(!mostrarTarefas()) return;
+		
 		System.out.println(Style.separador);
 		
 		Style.escrever("Insira o número da tarefa que deseja terminar : ");
 		int indiceTarefa = Input.pegaInt();
 		
 		service.concluirTarefa(indiceTarefa);
+		
+	}
+	
+	private void limparConcluidas() {
+		if(!mostrarTarefas()) return;
+		Style.escrever("Você vai limpar as tarefas concluidas");
+		
+		service.limparConcluidas();
+	}
+	
+	private void excluirTarefas() {
+		if(!mostrarTarefas()) return;
+		
+		Style.escrever("Você vai limpar TODAS as tarefas");
+		
+		service.apagarTarefas();
+		
+	}
+	
+	private boolean estaVazia() {
+		if(service.estaVazia()) {
+			Style.escrever("Lista de tarefas está vazia...");
+			return true;
+		}
+		
+		return false;
 		
 	}
 	
