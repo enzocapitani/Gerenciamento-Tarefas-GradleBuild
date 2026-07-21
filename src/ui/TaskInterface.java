@@ -31,11 +31,13 @@ public class TaskInterface {
 			Style.escrever("Menu Principal", 20);
 			Style.escrever("1- Gerenciar minhas tarefas\n2- Sobre\n3- Sair", 10);
 			
-			switch (Input.pegaInt()) {
+			int escolha = Input.pegaInt();
+
+			switch (escolha) {
 				case 1 -> gerenciarTasksUi();
-				case 2 -> Style.escrever("Excluir tarefas");
+				case 2 -> sobre();
 				case 3 -> {
-					Style.escrever("Saindio");
+					Style.escrever("Até logo!\nSaindo...");
 					rodando = false;
 				}
 				
@@ -49,4 +51,9 @@ public class TaskInterface {
 		gerenciadorUi.gerenciarTasks();
 	}
 	
+	private void sobre(){
+		Style.escrever("Desenvolvimento: Enzo Capitani\nDesign: Enzo Capitani\nArquitetura de software:Enzo Capitani", 10);
+		System.out.println(Style.separador);
+	}
+
 }

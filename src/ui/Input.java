@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import ui.style.Style;
@@ -9,9 +10,24 @@ public class Input {
 	
 	public static int pegaInt() {
 		System.out.print("Resposta: ");
+		int resposta = 0;
 		
-		int resposta = scr.nextInt();
-		scr.nextLine();
+		try{
+			
+			resposta = scr.nextInt();
+			scr.nextLine();
+
+		}catch(InputMismatchException e){
+
+			System.out.println(Style.separador);
+			System.err.println("Erro! Valor nao numérico");
+			System.out.println(Style.separador);
+
+			//Limpa o buffer, para impedir que fique em loop infinito
+			scr.nextLine();
+
+			return 0;
+		}
 		
 		System.out.println(Style.separador);
 		
